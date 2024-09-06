@@ -1,0 +1,57 @@
+.ruler {
+  --app-ruler-border: 1px solid #555;
+  --app-ruler-base-height: 5px;
+  --app-ruler-font-size: 0.8rem;
+  --app-ruler-height: calc(var(--app-ruler-base-height) * 3);
+  @apply w-full my-[30px] h-[14px] grid grid-cols-[repeat(30,minmax(0,_1fr))];
+
+  position: relative;
+  .cm {
+    /* 1 cm = 10 mm */
+    @apply grid grid-cols-10;
+    height: var(--app-ruler-height);
+    border-left: var(--app-ruler-border);
+    &:nth-last-child(-n + 1) {
+      border-right: var(--app-ruler-border);
+    }
+    &:before, &:after {
+      position: relative;
+      left: calc(var(--app-ruler-font-size) * -0.3);
+      bottom: calc(var(--app-ruler-height) * -1.5);
+      font-size: var(--app-ruler-font-size);
+      line-height: 1;
+    }
+    &:nth-child(1) {
+      &:before {
+        content: "0";
+      }
+    }
+    &:nth-child(2) {
+      &:before {
+        content: "1";
+      }
+    }
+    &:nth-child(3) {
+      &:before {
+        content: "2";
+      }
+    }
+    &:nth-child(4) {
+      &:before {
+        content: "3";
+      }
+    }
+    &:nth-child(30) {
+      &:after {
+        content: "30";
+      }
+    }
+  }
+  .mm {
+    height: var(--app-ruler-base-height);
+    border-right: var(--app-ruler-border);
+    &:nth-of-type(5) {
+      height: calc(var(--app-ruler-base-height) * 2);
+    }
+  }
+}

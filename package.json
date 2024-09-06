@@ -1,0 +1,36 @@
+{
+  "name": "3cm.app",
+  "description": "這是一個只有 3cm 的站點，怎麼亂搞都行，只要您的 PR 比較長。",
+  "author": {
+    "name": "dev",
+    "url": "https://github.com/3cm-app"
+  },
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "keywords": [
+    "website",
+    "mithril",
+    "3cm",
+    "3cm.app"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "nes.css": "^2.2.1",
+    "postcss": "^8.4.45",
+    "postcss-import": "^16.1.0",
+    "postcss-nesting": "^13.0.0",
+    "tailwindcss": "^3.4.10",
+    "unplugin-auto-import": "^0.18.2",
+    "vite": "^5.4.3",
+    "vite-plugin-html": "^3.2.2"
+  },
+  "dependencies": {
+    "firebase": "^10.13.1",
+    "mithril": "^2.2.2"
+  }
+}
