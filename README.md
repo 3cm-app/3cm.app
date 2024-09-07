@@ -16,6 +16,11 @@ npm i -D vite autoprefixer postcss postcss-import postcss-nesting tailwindcss vi
   - `https://developers.cloudflare.com/rules/page-rules/`
   - Rules -> Page Rules -> Create Page Rules -> ...
 
+`Gisgus`
+
+- Create: `https://giscus.app/`
+- Change order: `https://github.com/giscus/giscus/blob/main/ADVANCED-USAGE.md#defaultcommentorder`
+
 ## TODO
 
 Enable cf web views
