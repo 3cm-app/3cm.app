@@ -5,4 +5,5 @@ import '../node_modules/nes.css/css/nes.min.css';
 import './index.css'
 
 const $root = document.body.querySelector('#app')
+m.route.prefix = ''
 m.route($root, DefaultRoute, Routes)

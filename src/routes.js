@@ -1,4 +1,5 @@
 import IndexPage from '@/pages/index'
+import NotFoundPage from '@/pages/404'
 import MaintenancePage from '@/pages/maintenance'
 import Splash from '@/components/splash-loader/index'
 import Layout from '@/layouts/default'
@@ -16,7 +17,7 @@ const Routes = {
       return m(Layout, m(Splash))
     }
   },
-  '/index': {
+  '/': {
     onmatch () {
       // Show Loader until the promise has been resolved or rejected.
       m.render($root, m(Layout, m(Splash)))
@@ -35,9 +36,15 @@ const Routes = {
       }
       return  m(Layout, m(IndexPage))
     }
-  }
+  },
+  // must be last line
+  '/:404...': {
+    render: function () {
+      return m(Layout, m(NotFoundPage))
+    }
+  },
 }
 
-const DefaultRoute = '/index'
+const DefaultRoute = '/'
 
 export { Routes, DefaultRoute }
