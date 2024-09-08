@@ -1,5 +1,5 @@
 import Ruler from "@/components/ruler"
-
+import services from './index.data.js'
 export default function () {
   const minCount = 3
   const maxCount = 30
@@ -34,28 +34,6 @@ export default function () {
     }
     return `只有${n}ｃｍ。`
   }
-  const services = [
-    {
-      name: "Custom Website Development",
-      description:
-        "Responsive, tailored websites designed to meet your business needs and reflect your brand identity.",
-    },
-    {
-      name: "Mobile App & E-commerce Development",
-      description:
-        "High-performance mobile apps and e-commerce platforms crafted to deliver seamless user experiences and boost sales.",
-    },
-    {
-      name: "Automation Solutions",
-      description:
-        "Streamlined automation services that enhance efficiency, reduce manual tasks, and improve workflow across your operations.",
-    },
-    {
-      name: "Website Maintenance & Support",
-      description:
-        "Comprehensive maintenance services, including regular updates, security monitoring, and technical support to keep your website running smoothly.",
-    },
-  ]
   return {
     view() {
       return (
@@ -65,11 +43,11 @@ export default function () {
               <i class="nes-octocat animate"></i>
               <div class="nes-balloon from-left">
                 <p class="text-2xl">
-                  <a href="#">#</a> Services we offered
+                  <a href="#">#</a> {services.title}
                 </p>
               </div>
             </div>
-            {services.map((row, i) => {
+            {services.data.map((row, i) => {
               return (
                 <div class="mb-6">
                   <div

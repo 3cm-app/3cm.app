@@ -16,6 +16,8 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           projectId: xx-3cm
+    # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
+    continue-on-error: true
   # https://docs.github.com/en/enterprise-cloud@latest/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: build_and_deploy

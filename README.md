@@ -6,7 +6,7 @@
 
 ```bash
 npm i mithril firebase
-npm i -D vite autoprefixer postcss postcss-import postcss-nesting tailwindcss vite-plugin-html
+npm i -D vite autoprefixer postcss postcss-import postcss-nesting tailwindcss vite-plugin-html unplugin-auto-import
 ```
 
 `Cloudflare setup`
