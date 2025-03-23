@@ -5,6 +5,9 @@ on:
       conclusion:
         required: true
         type: string
+      package:
+        required: true
+        type: string
     secrets:
       TELEGRAM_BOT_TOKEN:
         required: true
@@ -18,5 +21,8 @@ jobs:
       - uses: up9cloud/action-notify@master
         env:
           GITHUB_JOB_STATUS: ${{ inputs.conclusion }}
+          PACKAGE_NAME: ${{ inputs.package }}
           TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
           TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+          TELEGRAM_TEMPLATE_PATH: "./.github/telegram-notify.md
+          TELEGRAM_PARSE_MODE: md
