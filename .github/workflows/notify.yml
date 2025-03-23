@@ -27,9 +27,9 @@ jobs:
       - id: e
         run: |
           {
-            echo 'notify_template<<EOF'
+            echo 'notify_template<<___EOF___'
             cat ./.github/telegram-notify.md
-            echo EOF
+            echo ___EOF___
           } >> "$GITHUB_OUTPUT"
       - uses: up9cloud/action-notify@master
         env:
