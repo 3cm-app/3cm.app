@@ -19,13 +19,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: '.github'
+          sparse-checkout-cone-mode: false
       # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter
+      # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions?tool=bash#multiline-strings
       - id: e
         run: |
-          s="$(cat ./.github/telegram-notify.md)"
-          s="${s//\"/\\\"}"
-          s="${s//$'\n'/\\n}"
-          echo "notify_template=$s" >> "$GITHUB_OUTPUT"
+          {
+            echo 'notify_template<<EOF'
+            cat ./.github/telegram-notify.md
+            echo EOF
+          } >> "$GITHUB_OUTPUT"
       - uses: up9cloud/action-notify@master
         env:
           GITHUB_JOB_STATUS: ${{ inputs.conclusion }}
