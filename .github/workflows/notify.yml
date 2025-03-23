@@ -8,8 +8,6 @@ on:
       package:
         required: true
         type: string
-      template:
-        type: string
     secrets:
       TELEGRAM_BOT_TOKEN:
         required: true
@@ -21,11 +19,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter
+      - id: e
+        run: |
+          s="$(cat ./.github/telegram-notify.md)"
+          s="${s//\"/\\\"}"
+          s="${s//$'\n'/\\n}"
+          echo "notify_template=\"$s\"" >> "$GITHUB_OUTPUT"
       - uses: up9cloud/action-notify@master
         env:
           GITHUB_JOB_STATUS: ${{ inputs.conclusion }}
           PACKAGE_NAME: ${{ inputs.package }}
           TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
           TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
-          TELEGRAM_TEMPLATE_CONTENT: ${{ inputs.template }}
+          TELEGRAM_TEMPLATE_CONTENT: ${{ steps.e.outputs.notify_template }}
           TELEGRAM_PARSE_MODE: md
