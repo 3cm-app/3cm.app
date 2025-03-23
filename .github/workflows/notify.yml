@@ -18,6 +18,7 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
       - uses: up9cloud/action-notify@master
         env:
           GITHUB_JOB_STATUS: ${{ inputs.conclusion }}

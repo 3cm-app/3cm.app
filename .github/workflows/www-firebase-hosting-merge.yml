@@ -8,6 +8,7 @@ name: Deploy to Firebase Hosting on merge
       - master
     paths:
       - .github/workflows/www-firebase-hosting-merge.yml
+      - .github/workflows/notify.yml
       - "packages/www/**"
 
 jobs:
@@ -27,7 +28,7 @@ jobs:
           projectId: xx-3cm
     # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
-  # https://docs.github.com/en/enterprise-cloud@latest/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
+  # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: build_and_deploy
     uses: ./.github/workflows/notify.yml
