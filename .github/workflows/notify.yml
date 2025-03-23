@@ -8,6 +8,8 @@ on:
       package:
         required: true
         type: string
+      template:
+        type: string
     secrets:
       TELEGRAM_BOT_TOKEN:
         required: true
@@ -25,5 +27,5 @@ jobs:
           PACKAGE_NAME: ${{ inputs.package }}
           TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
           TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
-          TELEGRAM_TEMPLATE_PATH: ./.github/telegram-notify.md
+          TELEGRAM_TEMPLATE_CONTENT: ${{ inputs.template }}
           TELEGRAM_PARSE_MODE: md
