@@ -28,9 +28,9 @@ jobs:
           projectId: xx-3cm
       # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter
       - run: |
-        s="$(cat ./.github/telegram-notify.md)"
-        s="${s//\"/\\\"}"
-        echo "notify_template=\"$s\"" >> "$GITHUB_OUTPUT"
+          s="$(cat ./.github/telegram-notify.md)"
+          s="${s//\"/\\\"}"
+          echo "notify_template=\"$s\"" >> "$GITHUB_OUTPUT"
     # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
   # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
