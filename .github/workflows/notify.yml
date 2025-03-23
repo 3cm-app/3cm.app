@@ -28,7 +28,7 @@ jobs:
         run: |
           delimiter=EOF_$(openssl rand -hex 8)
           {
-            echo 'notify_template<<${delimiter}'
+            echo "notify_template<<${delimiter}"
             cat ./.github/telegram-notify.md
             echo
             echo ${delimiter}
