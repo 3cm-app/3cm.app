@@ -27,7 +27,8 @@ jobs:
           channelId: live
           projectId: xx-3cm
       # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions#setting-an-output-parameter
-      - run: |
+      - id: e
+        run: |
           s="$(cat ./.github/telegram-notify.md)"
           s="${s//\"/\\\"}"
           s="${s//$'\n'/\\n}"
@@ -43,4 +44,4 @@ jobs:
     with:
       conclusion: ${{ needs.build_and_deploy.result }}
       package: www
-      template: ${{ needs.build_and_deploy.notify_template }}
+      template: ${{ needs.build_and_deploy.steps.e.outputs.notify_template }}

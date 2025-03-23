@@ -26,7 +26,8 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           projectId: xx-3cm
-      - run: |
+      - id: e
+        run: |
           s="$(cat ./.github/telegram-notify.md)"
           s="${s//\"/\\\"}"
           s="${s//$'\n'/\\n}"
@@ -42,4 +43,4 @@ jobs:
     with:
       conclusion: ${{ needs.build_and_deploy.result }}
       package: www
-      template: ${{ needs.build_and_deploy.notify_template }}
+      template: ${{ needs.build_and_deploy.steps.e.outputs.notify_template }}
