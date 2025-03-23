@@ -26,10 +26,12 @@ jobs:
       # https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/workflow-commands-for-github-actions?tool=bash#multiline-strings
       - id: e
         run: |
+          delimiter=EOF_$(openssl rand -hex 8)
           {
-            echo 'notify_template<<___EOF___'
+            echo 'notify_template<<${delimiter}'
             cat ./.github/telegram-notify.md
-            echo ___EOF___
+            echo
+            echo ${delimiter}
           } >> "$GITHUB_OUTPUT"
       - uses: up9cloud/action-notify@master
         env:
