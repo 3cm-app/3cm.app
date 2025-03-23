@@ -7,7 +7,8 @@ name: Deploy to Firebase Hosting on PR
     branches:
       - master
     paths:
-    - "packages/www/**"
+      - .github/workflows/www-firebase-hosting-merge.yml
+      - "packages/www/**"
 
 jobs:
   build_and_deploy:
