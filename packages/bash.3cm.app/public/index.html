@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>bash.3cm.app</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify@4/lib/themes/vue.css"> -->
+  <link rel="stylesheet" href="//unpkg.com/docsify-themeable@0/dist/css/theme-simple.css">
+</head>
+<body>
+  <div id="app"></div>
+  <script>
+    (function (window) {
+      // let routerMode = 'history'
+      let routerMode = 'hash' // ipfs don't support _redirects yet, see 
+      if (location.hostname === 'localhost') {
+        routerMode = 'hash'
+      }
+      window.$docsify = {
+        name: 'bash.3cm.app',
+        nameLink: '/',
+        repo: '',
+        relativePath: true,
+        loadSidebar: true,
+        subMaxLevel: 2,
+        routerMode,
+        auto2top: true,
+        alias: {
+          '/.*/_sidebar.md': '/_sidebar.md'
+        },
+        ga: 'G-W8JQ6YZ19H',
+        plugins: [
+          function (hook, vm) {
+            hook.beforeEach(content => {
+              let frontmatter = vm.frontmatter
+              let table = [[], [], []]
+              for (let k in frontmatter) {
+                table[0].push(k)
+                table[1].push('---')
+                table[2].push(frontmatter[k])
+              }
+              let frontMatterTableMd = table.map(row => row.join('|')).join('\n')
+              return frontMatterTableMd + '\n' + content
+            })
+            hook.mounted(function() {
+              const el = document.getElementById('main')
+              const m = document.createElement("div")
+              m.className = 'markdown-section'
+              m.id = 'gitalk-container'
+              el.parentNode.insertBefore(m, el.nextSibling)
+              const gitalk = new Gitalk({
+                clientID: '327499070677810b1f3c',
+                clientSecret: '7a42c30b9a947ef59eaa0eb6f1af8b2b037b152f',
+                repo: 'bash.3cm.app',
+                owner: '3cm-app',
+                admin: ['up9cloud'],
+                number: 1,
+                distractionFreeMode: false,
+                perPage: 100,
+              })
+              gitalk.render('gitalk-container')
+            })
+          }
+        ]
+      }
+    })(window)
+  </script>
+  <!-- Gitalk -->
+  <link rel="stylesheet" href="//unpkg.com/gitalk/dist/gitalk.css">
+  <script src="//unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <!-- Docsify v4 -->
+  <script src="//unpkg.com/docsify@4"></script>
+  <script src="//unpkg.com/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  <script src="//unpkg.com/docsify@4/lib/plugins/emoji.min.js"></script>
+  <script src="//unpkg.com/docsify@4/lib/plugins/front-matter.min.js"></script>
+  <script src="//unpkg.com/docsify@4/lib/plugins/ga.min.js"></script>
+  <script src="//unpkg.com/prismjs@1/components/prism-bash.min.js"></script>
+</body>
+</html>
