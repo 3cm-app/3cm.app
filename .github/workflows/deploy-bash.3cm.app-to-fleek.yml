@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FLEEK_TOKEN: ${{ secrets.FLEEK_TOKEN }}
+      # find id by command: `npx -w packages/bash.3cm.app fleek projects list`
       FLEEK_PROJECT_ID: ${{ secrets.PACKAGE_BASH_FLEEK_PROJECT_ID }}
     steps:
       - uses: actions/checkout@v4
@@ -23,7 +24,7 @@ jobs:
       - id: extract_deployment_id
         run: |
           slug=$(jq -r .sites[0].slug ./packages/bash.3cm.app/fleek.config.json)
-          deploy_info="$(npx -w packages/bash.3cm.app fleek sites deploy)"
+          deploy_info="$(npx -w packages/bash.3cm.app fleek sites deployments --slug $slug)"
           deployment_id=$(echo "$deploy_info"|grep RELEASE_COMPLETED|head -n 1| awk '{split($0,a," "); print a[1]}')
           if [ -z "$deployment_id" ]; then
             echo "$deploy_info"
