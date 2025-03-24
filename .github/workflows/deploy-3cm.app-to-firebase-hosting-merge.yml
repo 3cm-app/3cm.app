@@ -4,9 +4,9 @@ name: Deploy to Firebase Hosting on merge
     branches:
       - master
     paths:
-      - .github/workflows/www-firebase-hosting-merge.yml
+      - .github/workflows/deploy-3cm.app-to-firebase-hosting-merge.yml
       - .github/workflows/notify.yml
-      - "packages/www/**"
+      - "packages/3cm.app/**"
 
 jobs:
   deploy:
@@ -33,4 +33,4 @@ jobs:
     secrets: inherit
     with:
       conclusion: ${{ needs.deploy.result }}
-      package: www
+      package: 3cm.app
