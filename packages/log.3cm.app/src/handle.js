@@ -10,7 +10,7 @@ async function handleGoogleAlerts(id, req, text, env) {
 }
 
 // TODO: https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
-export default async function handleRequest(id, req, text, env) {
+export async function handleRequest(id, req, text, env) {
     if (req.headers['user-agent'] === 'Google-Alerts') {
         await handleGoogleAlerts(id, req, text, env)
     } else {
