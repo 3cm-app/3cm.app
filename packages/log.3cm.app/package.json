@@ -8,14 +8,11 @@
     "start": "wrangler dev"
   },
   "main": "src/server.js",
-  "sourceType": "module",
+  "type": "module",
   "author": "up9cloud (https://github.com/up9cloud)",
   "license": "UNLICENSED",
   "devDependencies": {
     "wrangler": "^3.114.2"
-  },
-  "directories": {
-    "example": "example"
   },
   "description": ""
 }

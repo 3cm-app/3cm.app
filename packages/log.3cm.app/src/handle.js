@@ -1,4 +1,4 @@
-import { tg } from './notify.mjs'
+import { tg } from './notify.js'
 
 async function handleGoogleAlerts(id, req, text, env) {
     const parsed = JSON.parse(text)

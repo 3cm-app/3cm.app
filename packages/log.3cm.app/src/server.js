@@ -1,6 +1,6 @@
 import http from 'http'
 import c_tg from '../.config/telegram.org/config.json' assert { type: 'json' }
-import handleRequest from './handle.mjs'
+import handleRequest from './handle.js'
 
 const requestListener = function (req, res) {
   const id = Math.random()
