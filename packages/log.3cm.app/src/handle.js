@@ -6,7 +6,7 @@ async function handleGoogleAlerts(req, text, env, locals) {
         policy_name: parsed?.incident?.policy_name,
         resource: parsed?.incident?.resource
     }) + '\n```'
-    await tg(msg, 'MarkdownV2', env)
+    await tg(msg, 'MarkdownV2', env, locals)
 }
 
 function getHeader(req, key) {

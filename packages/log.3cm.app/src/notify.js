@@ -16,5 +16,5 @@ export async function tg(text, mode, env, locals) {
         body: JSON.stringify(data)
     }
     const res = await fetch(url, options)
-    console.log('tg res', await res.text(), diff, locals)
+    console.log('tg res', await res.text(), locals)
 }
