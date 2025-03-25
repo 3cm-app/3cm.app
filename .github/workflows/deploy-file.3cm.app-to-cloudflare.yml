@@ -17,8 +17,8 @@ jobs:
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # environment: dev
           workingDirectory: "packages/file.3cm.app"
-        command: |
-          pages deploy docs --project-name=file --branch=master
+          command: |
+            pages deploy docs --project-name=file --branch=master
       - uses: up9cloud/action-notify@master
         if: cancelled() == false
         env:
