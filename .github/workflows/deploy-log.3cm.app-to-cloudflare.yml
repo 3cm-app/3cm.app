@@ -20,7 +20,7 @@ jobs:
           npm i -w packages/log.3cm.app
       - uses: cloudflare/wrangler-action@v3
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_TOKEN }}
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
           # environment: dev
           workingDirectory: "packages/log.3cm.app"
           secrets: |
