@@ -18,14 +18,23 @@ const requestListener = function (req, res) {
     process.stdout.write(d)
     text += d
   })
-  req.on('end', function() {
+  req.on('end', async function() {
+    process.stdout.write('\n')
     const end = new Date
     const diff = BigInt(end.valueOf()) - BigInt(start.valueOf())
-    console.log('\n[%s] [%o] end receiving (+%o ms)', end.toISOString(), id, diff)
-    handleRequest(id, req, text, {
-      TELEGRAM_BOT_TOKEN: c_tg.token,
-      TELEGRAM_CHAT_ID: c_tg.chat_id
-    }).catch(e => console.error(e))
+    console.log('[%s] [%o] end receiving (+%o ms)', end.toISOString(), id, diff)
+    try {
+      await handleRequest(req, text, {
+        TELEGRAM_BOT_TOKEN: c_tg.token,
+        TELEGRAM_CHAT_ID: c_tg.chat_id
+      }, {id})
+    } catch (e) {
+      console.error(e)
+    } finally {
+      const finish = new Date
+      const diff = BigInt(finish.valueOf()) - BigInt(end.valueOf())
+      console.log('[%s] [%o] finish handleRequest (+%o ms)', finish.toISOString(), id, diff)
+    }
   })
   res.writeHead(200)
   res.end()

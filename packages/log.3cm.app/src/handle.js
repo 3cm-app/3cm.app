@@ -1,12 +1,12 @@
 import { tg } from './notify.js'
 
-async function handleGoogleAlerts(id, req, text, env) {
+async function handleGoogleAlerts(req, text, env, locals) {
     const parsed = JSON.parse(text)
     const msg = '```json\n'+ JSON.stringify({
         policy_name: parsed?.incident?.policy_name,
         resource: parsed?.incident?.resource
     }) + '\n```'
-    await tg(id, msg, 'MarkdownV2', env)
+    await tg(msg, 'MarkdownV2', env)
 }
 
 function getHeader(req, key) {
@@ -24,12 +24,12 @@ function detectFrom(req) {
 }
 
 // TODO: https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
-export async function handleRequest(id, req, text, env) {
+export async function handleRequest(req, text, env, locals) {
     switch (detectFrom(req)) {
         case 'google-alerts': {
-            return handleGoogleAlerts(id, req, text, env)
+            return handleGoogleAlerts(req, text, env, locals)
         }
     }
     console.log('receive', text)
-    console.error('[%s] [%o] skip handling request', (new Date).toISOString(), id)
+    console.error('skip handling request', locals)
 }
