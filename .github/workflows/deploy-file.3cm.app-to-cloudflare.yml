@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/deploy-file.3cm.app-to-cloudflare.yml
+      - packages/file.3cm.app/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # environment: dev
+          workingDirectory: "packages/file.3cm.app"
+        command: |
+          pages deploy docs --project-name=file --branch=master
+      - uses: up9cloud/action-notify@master
+        if: cancelled() == false
+        env:
+          GITHUB_JOB_STATUS: ${{ job.status }}
+          TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
+          TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
