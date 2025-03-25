@@ -2,11 +2,11 @@ import { tg } from './notify.mjs'
 
 async function handleGoogleAlerts(id, req, text, env) {
     const parsed = JSON.parse(text)
-    const text = '```json\n'+ JSON.stringify({
+    const msg = '```json\n'+ JSON.stringify({
         policy_name: parsed.incident.policy_name,
         resource: parsed.incident.resource
     }) + '\n```'
-    await tg(id, text, 'MarkdownV2', env)
+    await tg(id, msg, 'MarkdownV2', env)
 }
 
 // TODO: https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
