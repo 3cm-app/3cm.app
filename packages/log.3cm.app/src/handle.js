@@ -9,11 +9,27 @@ async function handleGoogleAlerts(id, req, text, env) {
     await tg(id, msg, 'MarkdownV2', env)
 }
 
+function getHeader(req, key) {
+    // fetch headers interface
+    if (typeof req.headers.get === 'function') {
+        return req.headers.get(key)
+    }
+    // nodejs request
+    return req.headers[key]
+}
+function detectFrom(req) {
+    if (getHeader(req, 'user-agent') === 'Google-Alerts') {
+        return 'google-alerts'
+    }
+}
+
 // TODO: https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries
 export async function handleRequest(id, req, text, env) {
-    if (req.headers['user-agent'] === 'Google-Alerts') {
-        await handleGoogleAlerts(id, req, text, env)
-    } else {
-        console.error('[%s] [%o] skip handling request', (new Date).toISOString(), id)
+    switch (detectFrom(req)) {
+        case 'google-alerts': {
+            return handleGoogleAlerts(id, req, text, env)
+        }
     }
+    console.log('receive', text)
+    console.error('[%s] [%o] skip handling request', (new Date).toISOString(), id)
 }
