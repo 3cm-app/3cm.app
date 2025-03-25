@@ -3,8 +3,8 @@ import { tg } from './notify.js'
 async function handleGoogleAlerts(id, req, text, env) {
     const parsed = JSON.parse(text)
     const msg = '```json\n'+ JSON.stringify({
-        policy_name: parsed.incident.policy_name,
-        resource: parsed.incident.resource
+        policy_name: parsed?.incident?.policy_name,
+        resource: parsed?.incident?.resource
     }) + '\n```'
     await tg(id, msg, 'MarkdownV2', env)
 }
