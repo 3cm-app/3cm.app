@@ -1,12 +1,10 @@
-name: Deploy to Firebase Hosting on merge
-'on':
+on:
   push:
     branches:
       - master
     paths:
       - .github/workflows/deploy-3cm.app-to-firebase-hosting-merge.yml
-      - .github/workflows/notify.yml
-      - "packages/3cm.app/**"
+      - packages/3cm.app/**
 
 jobs:
   deploy:

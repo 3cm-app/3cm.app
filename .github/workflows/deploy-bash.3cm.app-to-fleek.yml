@@ -1,10 +1,10 @@
-name: Deploy to Fleek
 on:
   push:
     branches:
       - master
     paths:
       - .github/workflows/deploy-bash.3cm.app-to-fleek.yml
+      - .github/workflows/notify.yml
       - packages/bash.3cm.app/**
 jobs:
   deploy:
