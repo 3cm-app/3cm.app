@@ -1,0 +1,32 @@
+name: deploy dev
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/deploy-log.3cm.app-to-cloudflare.yml
+      - packages/log.3cm.app/**
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # environment: dev
+          workingDirectory: "packages/log.3cm.app"
+          secrets: |
+            TELEGRAM_BOT_TOKEN
+            TELEGRAM_CHAT_ID
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      - uses: up9cloud/action-notify@master
+        if: cancelled() == false
+        env:
+          GITHUB_JOB_STATUS: ${{ job.status }}
+          TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
+          TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}

@@ -1,0 +1,21 @@
+{
+  "name": "log.3cm.app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "start": "wrangler dev"
+  },
+  "main": "src/server.js",
+  "sourceType": "module",
+  "author": "up9cloud (https://github.com/up9cloud)",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "wrangler": "^3.114.2"
+  },
+  "directories": {
+    "example": "example"
+  },
+  "description": ""
+}

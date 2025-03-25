@@ -9,6 +9,7 @@
   "description": "",
   "workspaces": [
     "packages/www",
-    "packages/bash.3cm.app"
+    "packages/bash.3cm.app",
+    "packages/log.3cm.app"
   ]
 }

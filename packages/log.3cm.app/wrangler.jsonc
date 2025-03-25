@@ -1,0 +1,10 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+  "name": "log",
+  "main": "src/cloudflare_worker.js",
+	"compatibility_date": "2025-03-21",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  }
+}

@@ -1,0 +1,1 @@
+npm create cloudflare@latest -- log.3cm.app
