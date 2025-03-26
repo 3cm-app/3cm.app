@@ -4,7 +4,8 @@ on:
   push:
     branches:
       - master
-    # the paths can't use env
+    # cannot use runner environment variables in parts of a workflow that are processed by GitHub Actions
+    # see: https://docs.github.com/en/actions/writing-workflows/choosing-what-your-workflow-does/store-information-in-variables#using-the-env-context-to-access-environment-variable-values
     paths:
       - .github/workflows/notify-test.yml
       - .github/workflows/notify.yml
@@ -17,12 +18,12 @@ jobs:
           exit 2
     # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
-  # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: deploy
-    uses: ./.github/workflows/notify.yml
-    # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
-    secrets: inherit
-    with:
-      conclusion: ${{ needs.deploy.result }}
-      package: ${{env.PACKAGE_ID}}
+    steps:
+      - uses: ./.github/workflows/notify.yml
+        # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
+        secrets: inherit
+        with:
+          conclusion: ${{ needs.deploy.result }}
+          package: ${{env.PACKAGE_ID}}

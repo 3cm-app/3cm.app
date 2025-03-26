@@ -41,14 +41,12 @@ jobs:
           proxied: false
           token: ${{ secrets.CLOUDFLARE_TOKEN }}
           zone: ${{ secrets.CLOUDFLARE_ZONE }}
-    # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
-  # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: deploy
-    uses: ./.github/workflows/notify.yml
-    # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
-    secrets: inherit
-    with:
-      conclusion: ${{ needs.deploy.result }}
-      package: ${{env.PACKAGE_ID}}
+    steps:
+      - uses: ./.github/workflows/notify.yml
+        secrets: inherit
+        with:
+          conclusion: ${{ needs.deploy.result }}
+          package: ${{env.PACKAGE_ID}}
