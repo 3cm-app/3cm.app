@@ -1,11 +1,12 @@
+env:
+  PACKAGE_ID: 3cm.app
 on:
   pull_request:
     branches:
       - master
     paths:
       - .github/workflows/deploy-3cm.app-to-firebase-hosting-pull-request.yml
-      - packages/3cm.app/**
-
+      - packages/${{env.PACKAGE_ID}}/**
 jobs:
   deploy:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -13,11 +14,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: |
-          npm -w packages/www i
-          npm -w packages/www run build
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npm -w packages/${{env.PACKAGE_ID}} run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: ./packages/www
+          entryPoint: ./packages/${{env.PACKAGE_ID}}
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           projectId: xx-3cm
@@ -28,4 +29,4 @@ jobs:
     secrets: inherit
     with:
       conclusion: ${{ needs.deploy.result }}
-      package: 3cm.app
+      package: ${{env.PACKAGE_ID}}

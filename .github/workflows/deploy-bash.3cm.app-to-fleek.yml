@@ -1,3 +1,5 @@
+env:
+  PACKAGE_ID: bash.3cm.app
 on:
   push:
     branches:
@@ -5,7 +7,7 @@ on:
     paths:
       - .github/workflows/deploy-bash.3cm.app-to-fleek.yml
       - .github/workflows/notify.yml
-      - packages/bash.3cm.app/**
+      - packages/${{env.PACKAGE_ID}}/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -19,12 +21,12 @@ jobs:
         with:
           node-version: 18
       - run: |
-          npm -w packages/bash.3cm.app i
-          npx -w packages/bash.3cm.app fleek sites deploy
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npx -w packages/${{env.PACKAGE_ID}} fleek sites deploy
       - id: extract_deployment_id
         run: |
-          slug=$(jq -r .sites[0].slug ./packages/bash.3cm.app/fleek.config.json)
-          deploy_info="$(npx -w packages/bash.3cm.app fleek sites deployments --slug $slug)"
+          slug=$(jq -r .sites[0].slug ./packages/${{env.PACKAGE_ID}}/fleek.config.json)
+          deploy_info="$(npx -w packages/${{env.PACKAGE_ID}} fleek sites deployments --slug $slug)"
           deployment_id=$(echo "$deploy_info"|grep RELEASE_COMPLETED|head -n 1| awk '{split($0,a," "); print a[1]}')
           if [ -z "$deployment_id" ]; then
             echo "$deploy_info"
@@ -40,10 +42,14 @@ jobs:
           proxied: false
           token: ${{ secrets.CLOUDFLARE_TOKEN }}
           zone: ${{ secrets.CLOUDFLARE_ZONE }}
+    # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
+    continue-on-error: true
+  # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: deploy
     uses: ./.github/workflows/notify.yml
+    # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
     secrets: inherit
     with:
       conclusion: ${{ needs.deploy.result }}
-      package: bash.3cm.app
+      package: ${{env.PACKAGE_ID}}

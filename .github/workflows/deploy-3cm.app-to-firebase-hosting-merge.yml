@@ -1,34 +1,32 @@
+env:
+  PACKAGE_ID: 3cm.app
 on:
   push:
     branches:
       - master
     paths:
       - .github/workflows/deploy-3cm.app-to-firebase-hosting-merge.yml
-      - packages/3cm.app/**
-
+      - packages/${{env.PACKAGE_ID}}/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - run: |
-          npm -w packages/www i
-          npm -w packages/www run build
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npm -w packages/${{env.PACKAGE_ID}} run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          entryPoint: ./packages/www
+          entryPoint: ./packages/${{env.PACKAGE_ID}}
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           channelId: live
           projectId: xx-3cm
-    # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
-  # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#calling-a-reusable-workflow
   notify:
     needs: deploy
     uses: ./.github/workflows/notify.yml
-    # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
     secrets: inherit
     with:
       conclusion: ${{ needs.deploy.result }}
-      package: 3cm.app
+      package: ${{env.PACKAGE_ID}}

@@ -1,11 +1,12 @@
+env:
+  PACKAGE_ID: log.3cm.app
 on:
   push:
     branches:
       - master
     paths:
       - .github/workflows/deploy-log.3cm.app-to-cloudflare.yml
-      - packages/log.3cm.app/**
-
+      - packages/${{env.PACKAGE_ID}}/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -15,22 +16,24 @@ jobs:
         with:
           node-version: 20
       - run: |
-          npm i -w packages/log.3cm.app
+          npm i -w packages/${{env.PACKAGE_ID}}
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           # environment: dev
-          workingDirectory: "packages/log.3cm.app"
+          workingDirectory: packages/${{env.PACKAGE_ID}}
           secrets: |
             TELEGRAM_BOT_TOKEN
             TELEGRAM_CHAT_ID
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-      - uses: up9cloud/action-notify@master
-        if: cancelled() == false
-        env:
-          GITHUB_JOB_STATUS: ${{ job.status }}
-          TELEGRAM_BOT_TOKEN: ${{secrets.TELEGRAM_BOT_TOKEN}}
-          TELEGRAM_CHAT_ID: ${{secrets.TELEGRAM_CHAT_ID}}
+    continue-on-error: true
+  notify:
+    needs: deploy
+    uses: ./.github/workflows/notify.yml
+    secrets: inherit
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{env.PACKAGE_ID}}

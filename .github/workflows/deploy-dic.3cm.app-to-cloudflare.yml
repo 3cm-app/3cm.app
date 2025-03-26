@@ -1,25 +1,30 @@
 env:
-  PACKAGE_ID: file.3cm.app
+  PACKAGE_ID: dic.3cm.app
 on:
   push:
     branches:
       - master
     paths:
-      - .github/workflows/deploy-file.3cm.app-to-cloudflare.yml
+      - .github/workflows/deploy-dic.3cm.app-to-cloudflare.yml
       - packages/${{env.PACKAGE_ID}}/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: |
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npm -w packages/${{env.PACKAGE_ID}} run build
       - uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # environment: dev
           workingDirectory: packages/${{env.PACKAGE_ID}}
           command: |
-            pages deploy docs --project-name=file --branch=master
+            pages deploy dist --project-name=dic --branch=master
     continue-on-error: true
   notify:
     needs: deploy
