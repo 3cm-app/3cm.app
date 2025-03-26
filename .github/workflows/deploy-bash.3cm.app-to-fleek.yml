@@ -6,8 +6,7 @@ on:
       - master
     paths:
       - .github/workflows/deploy-bash.3cm.app-to-fleek.yml
-      - .github/workflows/notify.yml
-      - packages/${{env.PACKAGE_ID}}/**
+      - packages/bash.3cm.app/**
 jobs:
   deploy:
     runs-on: ubuntu-latest

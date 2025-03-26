@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - .github/workflows/deploy-3cm.app-to-firebase-hosting-pull-request.yml
-      - packages/${{env.PACKAGE_ID}}/**
+      - packages/3cm.app/**
 jobs:
   deploy:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'

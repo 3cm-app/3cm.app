@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - .github/workflows/deploy-dic.3cm.app-to-cloudflare.yml
-      - packages/${{env.PACKAGE_ID}}/**
+      - packages/dic.3cm.app/**
 jobs:
   deploy:
     runs-on: ubuntu-latest

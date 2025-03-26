@@ -6,7 +6,7 @@ on:
       - master
     paths:
       - .github/workflows/deploy-3cm.app-to-firebase-hosting-merge.yml
-      - packages/${{env.PACKAGE_ID}}/**
+      - packages/3cm.app/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
