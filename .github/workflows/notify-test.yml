@@ -20,6 +20,7 @@ jobs:
     continue-on-error: true
   notify:
     needs: deploy
+    secrets: inherit
     steps:
       - uses: ./.github/workflows/notify.yml
         # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow

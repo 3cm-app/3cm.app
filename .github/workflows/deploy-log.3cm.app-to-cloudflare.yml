@@ -32,9 +32,9 @@ jobs:
     continue-on-error: true
   notify:
     needs: deploy
+    secrets: inherit
     steps:
       - uses: ./.github/workflows/notify.yml
-        secrets: inherit
         with:
           conclusion: ${{ needs.deploy.result }}
           package: ${{env.PACKAGE_ID}}
