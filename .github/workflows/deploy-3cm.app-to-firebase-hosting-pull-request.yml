@@ -27,9 +27,9 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           projectId: xx-3cm
-    continue-on-error: true
   notify:
     needs: deploy
+    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

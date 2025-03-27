@@ -30,9 +30,9 @@ jobs:
           workingDirectory: packages/${{env.PACKAGE_ID}}
           command: |
             pages deploy dist --project-name=dic --branch=master
-    continue-on-error: true
   notify:
     needs: deploy
+    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

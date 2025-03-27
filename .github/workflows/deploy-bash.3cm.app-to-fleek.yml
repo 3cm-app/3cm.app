@@ -46,9 +46,9 @@ jobs:
           proxied: false
           token: ${{ secrets.CLOUDFLARE_TOKEN }}
           zone: ${{ secrets.CLOUDFLARE_ZONE }}
-    continue-on-error: true
   notify:
     needs: deploy
+    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

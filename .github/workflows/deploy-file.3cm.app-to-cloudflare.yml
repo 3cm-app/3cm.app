@@ -25,9 +25,9 @@ jobs:
           workingDirectory: packages/${{env.PACKAGE_ID}}
           command: |
             pages deploy docs --project-name=file --branch=master
-    continue-on-error: true
   notify:
     needs: deploy
+    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:
