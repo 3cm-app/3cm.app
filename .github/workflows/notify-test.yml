@@ -21,10 +21,8 @@ jobs:
   notify:
     needs: deploy
     secrets: inherit
-    steps:
-      - uses: ./.github/workflows/notify.yml
-        # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
-        secrets: inherit
-        with:
-          conclusion: ${{ needs.deploy.result }}
-          package: ${{env.PACKAGE_ID}}
+    uses: ./.github/workflows/notify.yml
+    # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{ needs.deploy.steps.e.outputs.PROJECT_ID }}

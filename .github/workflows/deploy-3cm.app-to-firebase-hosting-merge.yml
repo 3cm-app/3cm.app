@@ -11,6 +11,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - id: e
+        run: |
+          echo "PROJECT_ID=${{env.PROJECT_ID}}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
@@ -26,8 +29,7 @@ jobs:
   notify:
     needs: deploy
     secrets: inherit
-    steps:
-      - uses: ./.github/workflows/notify.yml
-        with:
-          conclusion: ${{ needs.deploy.result }}
-          package: ${{env.PACKAGE_ID}}
+    uses: ./.github/workflows/notify.yml
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{ needs.deploy.steps.e.outputs.PROJECT_ID }}

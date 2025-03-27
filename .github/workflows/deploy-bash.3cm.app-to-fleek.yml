@@ -15,6 +15,9 @@ jobs:
       # find id by command: `npx -w packages/bash.3cm.app fleek projects list`
       FLEEK_PROJECT_ID: ${{ secrets.PACKAGE_BASH_FLEEK_PROJECT_ID }}
     steps:
+      - id: e
+        run: |
+          echo "PROJECT_ID=${{env.PROJECT_ID}}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
@@ -45,8 +48,7 @@ jobs:
   notify:
     needs: deploy
     secrets: inherit
-    steps:
-      - uses: ./.github/workflows/notify.yml
-        with:
-          conclusion: ${{ needs.deploy.result }}
-          package: ${{env.PACKAGE_ID}}
+    uses: ./.github/workflows/notify.yml
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{ needs.deploy.steps.e.outputs.PROJECT_ID }}
