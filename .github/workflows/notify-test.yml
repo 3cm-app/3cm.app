@@ -25,8 +25,8 @@ jobs:
     # don't set it to true, see: https://github.com/actions/runner/issues/1251#issuecomment-895850408
     # continue-on-error: true
   notify:
+    if: cancelled() == false
     needs: deploy
-    if: ${{ always() }}
     secrets: inherit
     # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
     uses: ./.github/workflows/notify.yml

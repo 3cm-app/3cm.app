@@ -47,8 +47,8 @@ jobs:
           token: ${{ secrets.CLOUDFLARE_TOKEN }}
           zone: ${{ secrets.CLOUDFLARE_ZONE }}
   notify:
+    if: cancelled() == false
     needs: deploy
-    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

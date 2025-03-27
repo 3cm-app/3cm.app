@@ -31,8 +31,8 @@ jobs:
           command: |
             pages deploy dist --project-name=dic --branch=master
   notify:
+    if: cancelled() == false
     needs: deploy
-    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

@@ -27,10 +27,9 @@ jobs:
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
           channelId: live
           projectId: xx-3cm
-    if: ${{ always() }}
   notify:
+    if: cancelled() == false
     needs: deploy
-    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:

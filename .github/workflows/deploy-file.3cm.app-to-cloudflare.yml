@@ -26,8 +26,8 @@ jobs:
           command: |
             pages deploy docs --project-name=file --branch=master
   notify:
+    if: cancelled() == false
     needs: deploy
-    if: ${{ always() }}
     secrets: inherit
     uses: ./.github/workflows/notify.yml
     with:
