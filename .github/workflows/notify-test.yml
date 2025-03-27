@@ -13,6 +13,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      PACKAGE_ID: ${{ steps.e.outputs.PACKAGE_ID }}
     steps:
       - id: e
         run: |
@@ -28,4 +30,4 @@ jobs:
     # https://docs.github.com/en/actions/sharing-automations/reusing-workflows#passing-inputs-and-secrets-to-a-reusable-workflow
     with:
       conclusion: ${{ needs.deploy.result }}
-      package: ${{ needs.deploy.steps.e.outputs.PACKAGE_ID }}
+      package: ${{ needs.deploy.outputs.PACKAGE_ID }}
