@@ -8,7 +8,7 @@
   "license": "UNLICENSED",
   "description": "",
   "workspaces": [
-    "packages/www",
+    "packages/3cm.app",
     "packages/bash.3cm.app",
     "packages/log.3cm.app",
     "packages/file.3cm.app",
