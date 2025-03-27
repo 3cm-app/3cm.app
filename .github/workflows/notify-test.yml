@@ -23,6 +23,8 @@ jobs:
           exit 2
     # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
     continue-on-error: true
+    # https://github.com/reviewdog/reviewdog/issues/907#issuecomment-850214725
+    fail_on_error: true
   notify:
     needs: deploy
     secrets: inherit
