@@ -21,10 +21,10 @@ jobs:
           npm -w packages/${{env.PACKAGE_ID}} i
           git config user.name "github-actions-bot"
           git config user.email "support+actions@github.com"
-          git remote set-url origin git@github.com:3cm-app/file.3cm.app.git
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
             -u "github-actions-bot <support+actions@github.com>" \
-            --repo git@github.com:3cm-app/file.3cm.app.git \
+            --repo https://github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
             --cname file.3cm.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
