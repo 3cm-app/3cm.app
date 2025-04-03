@@ -21,9 +21,6 @@ jobs:
           echo "PACKAGE_ID=${{env.PACKAGE_ID}}" >> "$GITHUB_OUTPUT"
       - run: |
           exit 2
-    # https://github.com/orgs/community/discussions/77915#discussioncomment-8409702
-    # don't set it to true, see: https://github.com/actions/runner/issues/1251#issuecomment-895850408
-    # continue-on-error: true
   notify:
     if: cancelled() == false
     needs: deploy
