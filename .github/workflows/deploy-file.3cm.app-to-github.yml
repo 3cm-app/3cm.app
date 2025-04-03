@@ -28,6 +28,7 @@ jobs:
             --cname file.3cm.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_DEBUG: gh-pages
   notify:
     if: cancelled() == false
     needs: deploy
