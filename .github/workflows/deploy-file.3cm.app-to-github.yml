@@ -19,9 +19,10 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
+          git config user.name "up9cloud"
+          git config user.email "8325632+up9cloud@users.noreply.github.com"
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
-            -u "up9cloud <8325632+up9cloud@users.noreply.github.com>" \
             --repo https://github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
             --cname file.3cm.app
         env:
