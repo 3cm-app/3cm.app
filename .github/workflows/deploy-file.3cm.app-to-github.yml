@@ -22,11 +22,9 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY_GITHUB }}
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
-          mkdir -p ~/.ssh
-          git config --global user.name "up9cloud"
-          git config --global user.email "8325632+up9cloud@users.noreply.github.com"
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
             --repo git@github.com:${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
+            -u "github-actions-bot <support+actions@github.com>" \
             --cname file.3cm.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
