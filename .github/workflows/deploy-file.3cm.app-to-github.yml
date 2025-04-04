@@ -19,8 +19,9 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
-          mkdir ~/.ssh
+          mkdir -p ~/.ssh
           echo ${SSH_KEY_GITHUB} > ~/.ssh/id_ed25519
+          chmod 0600 ~/.ssh/id_ed25519
           git config --global user.name "github action"
           git config --global user.email "github@github.com"
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
