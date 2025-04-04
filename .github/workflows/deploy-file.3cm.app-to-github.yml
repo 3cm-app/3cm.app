@@ -22,8 +22,8 @@ jobs:
           mkdir -p ~/.ssh
           echo ${SSH_KEY_GITHUB} > ~/.ssh/id_ed25519
           chmod 0600 ~/.ssh/id_ed25519
-          git config --global user.name "github action"
-          git config --global user.email "github@github.com"
+          git config --global user.name "up9cloud"
+          git config --global user.email "8325632+up9cloud@users.noreply.github.com"
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
             --repo git@github.com:${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
             --cname file.3cm.app
