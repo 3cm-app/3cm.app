@@ -17,11 +17,12 @@ jobs:
         run: |
           echo "PACKAGE_ID=${{env.PACKAGE_ID}}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+      - uses: webfactory/ssh-agent@v0.9.0
+        with:
+          ssh-private-key: ${{ secrets.SSH_KEY_GITHUB }}
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
           mkdir -p ~/.ssh
-          echo ${SSH_KEY_GITHUB} > ~/.ssh/id_ed25519
-          chmod 0600 ~/.ssh/id_ed25519
           git config --global user.name "up9cloud"
           git config --global user.email "8325632+up9cloud@users.noreply.github.com"
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
@@ -29,7 +30,6 @@ jobs:
             --cname file.3cm.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SSH_KEY_GITHUB: ${{ secrets.SSH_KEY_GITHUB }}
   notify:
     if: cancelled() == false
     needs: deploy
