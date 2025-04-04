@@ -19,17 +19,15 @@ jobs:
       - uses: actions/checkout@v4
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
-          git config --global user.name "up9cloud"
-          git config --global user.email "8325632+up9cloud@users.noreply.github.com"
-          git config --global url.https://${GITHUB_TOKEN}@github.com/.insteadOf https://github.com/
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git
+          echo ${SSH_KEY_GITHUB} > ~/.ssh/id_ed25519
+          git config --global user.name "github action"
+          git config --global user.email "github@github.com"
           npm -w packages/${{env.PACKAGE_ID}} run deploy -- \
-            -u "up9cloud <8325632+up9cloud@users.noreply.github.com>" \
-            --repo https://github.com/${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
+            --repo git@github.com:${GITHUB_REPOSITORY_OWNER}/file.3cm.app.git \
             --cname file.3cm.app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NODE_DEBUG: gh-pages
+          SSH_KEY_GITHUB: ${{ secrets.SSH_KEY_GITHUB }}
   notify:
     if: cancelled() == false
     needs: deploy
