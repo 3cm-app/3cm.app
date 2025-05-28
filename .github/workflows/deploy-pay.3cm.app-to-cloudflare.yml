@@ -32,7 +32,7 @@ jobs:
           # environment: dev
           workingDirectory: packages/${{env.PACKAGE_ID}}
           command: |
-            pages deploy build --project-name=pay --branch=master
+            pages deploy build --project-name=pay-3cm-app --branch=master
   notify:
     if: cancelled() == false
     needs: deploy
