@@ -9,10 +9,9 @@ export default function () {
     view({ children }) {
       return (
         <>
-          <div class="container mx-auto">
-            <header class="h-16"></header>
+          <div class="container mx-auto sm:mt-4 md:mt-10 lg:mt-16">
             <div class="grid content-center">{children}</div>
-            <footer class="container mx-auto my-4">
+            <footer class="container px-2 my-4">
               <Giscus></Giscus>
               <p class="w-full text-center">
                 © 2024 3CM.APP{" "}

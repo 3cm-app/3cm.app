@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { PageProps } from './$types'
-  import { page } from "$app/state"
+	// import type { PageProps } from './$types'
+  // import { page } from "$app/state"
   import * as m from '$lib/paraglide/messages.js'
   import { DarkMode, Navbar, NavBrand, NavLi, NavUl, NavHamburger,  Tabs, TabItem, Card, ButtonGroup, Button, GradientButton } from "flowbite-svelte"
   // let activeUrl = $derived(page.url.pathname)

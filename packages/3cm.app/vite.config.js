@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import { createHtmlPlugin } from 'vite-plugin-html'
 import AutoImport from 'unplugin-auto-import/vite'
+import tailwindcss from "@tailwindcss/vite"
 import pkg from './package.json'
 
 // https://vitejs.dev/config/
@@ -27,6 +28,7 @@ export default defineConfig({
         }
       ]
     }),
+    tailwindcss(),
   ],
   resolve: {
     alias: {
