@@ -193,6 +193,7 @@ export default {
 </script>
 
 <style scoped>
+@reference "../main.css";
 .navbar-logo {
   @apply w-8 fill-blue-500 mr-[10px];
 }

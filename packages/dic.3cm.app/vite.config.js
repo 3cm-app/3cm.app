@@ -3,6 +3,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import svgLoader from 'vite-svg-loader'
+import tailwindcss from "@tailwindcss/vite"
 import Components from 'unplugin-vue-components/vite'
 import {PrimeVueResolver} from '@primevue/auto-import-resolver'
 
@@ -14,6 +15,7 @@ export default defineConfig({
     Components({
       resolvers: [PrimeVueResolver()],
     }),
+    tailwindcss(),
   ],
   resolve: {
     alias: {
