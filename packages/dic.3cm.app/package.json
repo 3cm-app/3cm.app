@@ -15,6 +15,7 @@
   "devDependencies": {
     "@primevue/auto-import-resolver": "^4.0.5",
     "@primevue/themes": "^4.0.5",
+    "@tailwindcss/postcss": "^4.1.8",
     "@tailwindcss/vite": "^4.1.8",
     "@vitejs/plugin-vue": "^5.0.5",
     "autoprefixer": "^10.4.20",
