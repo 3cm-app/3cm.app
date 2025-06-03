@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.8",
+    "@tailwindcss/vite": "^4.1.8",
     "nes.css": "^2.2.1",
     "postcss": "^8.4.45",
     "postcss-import": "^16.1.0",
