@@ -1,0 +1,26 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+  	function isLogin() {
+    	return request.auth != null && request.auth.token != null
+    }
+    function isAdmin() {
+      return get(/databases/$(database)/documents/user-permission/$(request.auth.token.email)).data.admin == true
+    }
+    function isAdminOrSelf(email) {
+    	return isAdmin() || email == request.auth.token.email;
+    }
+    match /link/{id} {
+      allow read: if true;
+      allow write: if isLogin() && isAdmin();
+    }
+    match /user-permission/{email} {
+      allow read: if isLogin() && isAdminOrSelf(email);
+      allow write: if false;
+    }
+    match /stat/{doc} {
+      allow read: if true;
+      allow write: if isLogin() && isAdmin();
+    }
+  }
+}

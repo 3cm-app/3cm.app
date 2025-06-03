@@ -1,0 +1,37 @@
+env:
+  PACKAGE_ID: share-your-video.3cm.app
+on:
+  pull_request:
+    branches:
+      - master
+    paths:
+      - .github/workflows/deploy-share-your-video.3cm.app-to-firebase-hosting-pull-request.yml
+      - packages/share-your-video.3cm.app/**
+jobs:
+  deploy:
+    if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
+    runs-on: ubuntu-latest
+    outputs:
+      PACKAGE_ID: ${{ steps.e.outputs.PACKAGE_ID }}
+    steps:
+      - id: e
+        run: |
+          echo "PACKAGE_ID=${{env.PACKAGE_ID}}" >> "$GITHUB_OUTPUT"
+      - uses: actions/checkout@v4
+      - run: |
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npm -w packages/${{env.PACKAGE_ID}} run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          entryPoint: ./packages/${{env.PACKAGE_ID}}
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_SHARE_YOUR_VIDEO_D2C48 }}'
+          projectId: share-your-video-d2c48
+  notify:
+    if: cancelled() == false
+    needs: deploy
+    secrets: inherit
+    uses: ./.github/workflows/notify.yml
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{ needs.deploy.outputs.PACKAGE_ID }}
