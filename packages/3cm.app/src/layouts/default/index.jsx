@@ -57,7 +57,7 @@ export default function () {
                 All Rights Reserved.
               </p>
             </footer>
-            <dialog class="nes-dialog is-rounded" id="dialog">
+            <dialog class="nes-dialog is-rounded translate-[50%]" id="dialog">
               <form method="dialog">
                 <p>Visit support us page?</p>
                 <menu class="dialog-menu flex justify-around">
