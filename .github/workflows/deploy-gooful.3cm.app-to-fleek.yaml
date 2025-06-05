@@ -12,7 +12,13 @@ jobs:
     runs-on: ubuntu-latest
     env:
       FLEEK_TOKEN: ${{ secrets.FLEEK_TOKEN }}
-      FLEEK_PROJECT_ID: enough-fish-young
+      # npx -w packages/gooful.3cm.app/ fleek projects list
+      # ID                         Name        Created At                Current
+      # ------------------------------------------------------------------------
+      # clwndumtx000uy6pv36imho6h  1oo.app     2024-05-26T10:14:27.094Z         
+      # clwnc3zc50001100b5aebupvx  3cm.app     2024-05-26T09:25:43.973Z  ✅      
+      # cm36krrli0001rm4o1qt67eoz  3cm's Team  2024-11-07T00:34:01.970Z
+      FLEEK_PROJECT_ID: clwnc3zc50001100b5aebupvx
     outputs:
       PACKAGE_ID: ${{ steps.e.outputs.PACKAGE_ID }}
     steps:
