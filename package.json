@@ -14,6 +14,7 @@
     "packages/file.3cm.app",
     "packages/dic.3cm.app",
     "packages/pay.3cm.app",
-    "packages/share-your-video.3cm.app"
+    "packages/share-your-video.3cm.app",
+    "packages/gooful.3cm.app"
   ]
 }

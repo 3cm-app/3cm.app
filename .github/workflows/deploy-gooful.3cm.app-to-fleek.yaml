@@ -1,19 +1,18 @@
 env:
-  PACKAGE_ID: bash.3cm.app
+  PACKAGE_ID: gooful.3cm.app
 on:
   push:
     branches:
       - master
     paths:
-      - .github/workflows/deploy-bash.3cm.app-to-fleek.yml
-      - packages/bash.3cm.app/**
+      - .github/workflows/deploy-gooful.3cm.app-to-fleek.yml
+      - packages/gooful.3cm.app/**
 jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
       FLEEK_TOKEN: ${{ secrets.FLEEK_TOKEN }}
-      # find id by command: `npx -w packages/bash.3cm.app fleek projects list`
-      FLEEK_PROJECT_ID: ${{ secrets.PACKAGE_BASH_FLEEK_PROJECT_ID }}
+      FLEEK_PROJECT_ID: enough-fish-young
     outputs:
       PACKAGE_ID: ${{ steps.e.outputs.PACKAGE_ID }}
     steps:
@@ -41,7 +40,7 @@ jobs:
       - uses: infraway/create-dns-record@v2.0
         with:
           type: "CNAME"
-          name: "bash.3cm.app"
+          name: "gooful.3cm.app"
           content: "${{ steps.extract_deployment_id.outputs.deployment_id }}.fleekcdn.xyz"
           ttl: 1
           proxied: false

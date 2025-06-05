@@ -2,9 +2,6 @@
 	"name": "file.3cm.app",
 	"version": "0.0.0",
 	"private": true,
-	"devDependencies": {
-		"wrangler": "^4.4.0"
-	},
 	"description": "",
 	"main": "index.js",
 	"directories": {

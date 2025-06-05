@@ -1,8 +1,6 @@
 import { Routes, DefaultRoute } from '@/routes.js'
 
 import './main.css'
-import 'nes.css/css/nes.min.css';
-import './index.css'
 
 const $root = document.body.querySelector('#app')
 m.route.prefix = ''

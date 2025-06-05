@@ -1,0 +1,22 @@
+@import 'tailwindcss';
+@import 'construct-ui/lib/index.css';
+
+.github-corner svg {
+  z-index: 1000;
+}
+.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}
+
+#item-dialog .cui-dialog-content {
+  border-radius: 10px;
+  height: 73%;
+  min-width: 85%;
+}
+#item-dialog .cui-dialog-body {
+  padding: 0
+}
+#item-dialog iframe {
+  min-width: 100%;
+  min-height: 100vh;
+  border: 0;
+  display: block;
+}

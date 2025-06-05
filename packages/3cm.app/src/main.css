@@ -1,4 +1,5 @@
 @import 'tailwindcss';
+@import 'nes.css/css/nes.min.css';
 
 /*
   The default border color has changed to `currentcolor` in Tailwind CSS v4,
@@ -16,4 +17,16 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+}
+
+/* https://zpix.vercel.app/ */
+@font-face {
+  font-family: ZpixReviewOnline;
+  /* src: url(https://zpix.now.sh/zpix.woff2?v2021-03-21) format('woff2'); */
+  src: url(./zpix.woff2) format('woff2');
+  /* https://stackoverflow.com/questions/19640402/css-unicode-range-for-cjk-characters */
+  unicode-range: U+3000-30FF, U+FF00-FFEF, U+4E00-9FAF;
+}
+body {
+  font-family: "ZpixReviewOnline", "Press Start 2P", "misaki_mincho", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
 }
