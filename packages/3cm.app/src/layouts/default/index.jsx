@@ -47,19 +47,25 @@ export default function () {
             <footer class="container px-2 my-4">
               <Giscus></Giscus>
               <p class="w-full text-center">
-                © 2024 <button class={clsx("nes-btn", {"is-primary": isLogin})} onclick={() => isLogin ? signout() : signin()}>3CM.APP</button>{" "}
+                © 2024 3CM.APP All Rights Reserved.
+              </p>
+              <p>
+                {isLogin ? (
+                  <button class={clsx("nes-btn", {"is-primary": isLogin})} onclick={signout}>Logout</button>
+                ) : (
+                  <button class={clsx("nes-btn")} onclick={signin}>Login</button>
+                )}
                 <a
                   href="#"
                   onclick={() => document.getElementById("dialog").showModal()}
                 >
                   <i class="nes-icon like"></i>
-                </a>{" "}
-                All Rights Reserved.
+                </a>
               </p>
             </footer>
             <dialog class="nes-dialog is-rounded translate-[50%]" id="dialog">
               <form method="dialog">
-                <p>Visit support us page?</p>
+                <p>Visit Support Us page?</p>
                 <menu class="dialog-menu flex justify-around">
                   <button class="nes-btn">Cancel</button>
                   <button class="nes-btn is-primary" onclick={gotoPay}>
