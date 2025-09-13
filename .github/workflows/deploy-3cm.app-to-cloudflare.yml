@@ -11,7 +11,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - id: e
+        run: |
+          echo "PACKAGE_ID=${{env.PACKAGE_ID}}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
           npm -w packages/${{env.PACKAGE_ID}} run build
@@ -33,9 +39,8 @@ jobs:
   notify:
     if: cancelled() == false
     needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: ./.github/workflows/notify.yml
-        with:
-          conclusion: ${{ needs.deploy.result }}
-          package: ${{ env.PACKAGE_ID }}
+    secrets: inherit
+    uses: ./.github/workflows/notify.yml
+    with:
+      conclusion: ${{ needs.deploy.result }}
+      package: ${{ needs.deploy.outputs.PACKAGE_ID }}
