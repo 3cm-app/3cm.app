@@ -1,0 +1,41 @@
+env:
+  PACKAGE_ID: 3cm.app
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - .github/workflows/deploy-3cm.app-to-cloudflare.yml
+      - packages/3cm.app/**
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          npm -w packages/${{env.PACKAGE_ID}} i
+          npm -w packages/${{env.PACKAGE_ID}} run build
+      # - uses: FirebaseExtended/action-hosting-deploy@v0
+      #   with:
+      #     entryPoint: ./packages/${{env.PACKAGE_ID}}
+      #     repoToken: '${{ secrets.GITHUB_TOKEN }}'
+      #     firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_XX_3CM }}'
+      #     channelId: live
+      #     projectId: xx-3cm
+      - uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKER }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          # environment: dev
+          workingDirectory: packages/${{env.PACKAGE_ID}}
+          command: |
+            pages deploy --branch=master --commit-dirty=true
+  notify:
+    if: cancelled() == false
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: ./.github/workflows/notify.yml
+        with:
+          conclusion: ${{ needs.deploy.result }}
+          package: ${{ env.PACKAGE_ID }}
