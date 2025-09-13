@@ -49,21 +49,23 @@ export default function () {
               <p class="w-full text-center">
                 © 2024 3CM.APP All Rights Reserved.
               </p>
-              <p>
+              <p class="w-full text-center">
                 {isLogin ? (
                   <button class={clsx("nes-btn", {"is-primary": isLogin})} onclick={signout}>Logout</button>
                 ) : (
                   <button class={clsx("nes-btn")} onclick={signin}>Login</button>
-                )}
-                <a
-                  href="#"
+                )}{" "}
+                <button
+                  class="nes-btn"
+                  type="button"
                   onclick={() => document.getElementById("dialog").showModal()}
+                  style="padding: 0 1.5em;"
                 >
-                  <i class="nes-icon like"></i>
-                </a>
+                  <i class="nes-icon coin"></i>
+                </button>
               </p>
             </footer>
-            <dialog class="nes-dialog is-rounded translate-[50%]" id="dialog">
+            <dialog id="dialog" class="nes-dialog is-rounded fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <form method="dialog">
                 <p>Visit Support Us page?</p>
                 <menu class="dialog-menu flex justify-around">

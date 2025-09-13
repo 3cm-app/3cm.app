@@ -12,7 +12,7 @@
   "author": "up9cloud (https://github.com/up9cloud)",
   "license": "UNLICENSED",
   "devDependencies": {
-    "wrangler": "^3.114.2"
+    "wrangler": "^4.36.0"
   },
   "description": ""
 }
