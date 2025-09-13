@@ -17,6 +17,10 @@ jobs:
         run: |
           echo "PACKAGE_ID=${{env.PACKAGE_ID}}" >> "$GITHUB_OUTPUT"
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
       - run: |
           npm -w packages/${{env.PACKAGE_ID}} i
           npm -w packages/${{env.PACKAGE_ID}} run build
