@@ -36,7 +36,7 @@ jobs:
           # environment: dev
           workingDirectory: packages/${{env.PACKAGE_ID}}
           command: |
-            pages deploy --branch=master --commit-dirty=true
+            pages deploy dist --project-name=3cm-app --branch=master --commit-dirty=true
   notify:
     if: cancelled() == false
     needs: deploy
